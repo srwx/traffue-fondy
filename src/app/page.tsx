@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <div className={clsx('min-h-[100dvh] relative', 'bg-[#F0F0F0]')}>
       <div className="relative w-full flex flex-col gap-y-5 items-center pt-20 z-20">
-        <TraffueFondyIcon width={150} height={100} />
+        <TraffueFondyIcon width={150} height={100} className="mb-8" />
         <Button className="w-full bg-secondary max-w-[276px]">
           <div className="flex items-center gap-x-2">
             <UserIcon />
