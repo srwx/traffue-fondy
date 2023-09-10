@@ -27,7 +27,7 @@ export default function Home() {
         height={1497}
         src={'/images/background/city.png'}
         alt="bg"
-        className="absolute -bottom-[calc(100dvh-90%)] left-0"
+        className="absolute -bottom-[calc(100dvh-90%)] left-0 md:hidden"
       />
     </div>
   )
