@@ -25,4 +25,13 @@ export const mockMarkers: Array<EventCardProps & { id: number }> = [
     date: '30 กันยายน 2566, 08.00-12.00',
     eventName: 'พิธีเปิดรถไฟฟ้าสายสีน้ำเงิน สถานีสามยอด',
   },
+  {
+    id: 4,
+    latitude: 13.744031932879354,
+    longitude: 100.48846545287874,
+    locationName: 'วัดอรุณราชวราราม',
+    date: '31 ธันวาคม 2566, 23.00-01.00',
+    eventName: 'สวดมนต์ข้ามปี',
+    // image: '/images/events/wat-arun.jpeg',
+  },
 ]
