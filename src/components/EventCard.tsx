@@ -16,17 +16,15 @@ const EventCard = (props: EventCardProps) => {
   return (
     <div className="flex flex-col gap-y-2 bg-white p-3 rounded-lg">
       {image && (
-        <div className="w-full h-full max-h-[100px] rounded-lg">
+        <div className="w-full h-[100px] rounded-lg relative">
           <Image src={image} alt="event" fill className="rounded-lg" />
         </div>
       )}
-      <span className="font-bold text-xs md:text-sm text-black">
-        {eventName}
-      </span>
-      <p className="text-xs md:text-sm text-black">
+      <span className="font-bold text-xs text-black">{eventName}</span>
+      <p className="text-xs text-black">
         สถานที่: <b>{locationName}</b>
       </p>
-      <p className="text-xs md:text-sm text-black">
+      <p className="text-xs text-black">
         วัน-เวลา: <b>{date}</b>
       </p>
     </div>
