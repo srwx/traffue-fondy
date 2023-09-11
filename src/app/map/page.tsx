@@ -36,7 +36,7 @@ const MapPage = () => {
   }
 
   return (
-    <div className="w-screen h-screen">
+    <div className="w-screen h-screen relative">
       <>
         <ReactMapGL
           style={{ width: '100%', height: '100%' }}
@@ -45,10 +45,12 @@ const MapPage = () => {
           mapStyle={mapStyle}
           mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_TOKEN}
         >
-          <div className="bg-black w-10 h-10"></div>
           {renderMarkers()}
         </ReactMapGL>
       </>
+      <div className="bg-primary text-white rounded absolute top-2 right-2 p-2">
+        TODO: Searchbar
+      </div>
     </div>
   )
 }
