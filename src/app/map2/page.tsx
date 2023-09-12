@@ -14,6 +14,7 @@ import clsx from 'clsx'
 import Input from '@/components/Input'
 import { simplifyRoute } from '@/utils/simplifyRoute'
 import { Drawer } from 'vaul'
+import { calculateDistance } from '@/utils/calculateDistance'
 
 const bangkokCenter = {
   lat: 13.7564,
@@ -26,6 +27,9 @@ const MapPageV2 = () => {
     useState<google.maps.DirectionsResult | null>(null)
   const [distance, setDistance] = useState('')
   const [duration, setDuration] = useState('')
+  const [routeCoordinates, setRouteCoordinates] = useState<
+    { lat: number; lng: number }[]
+  >([])
 
   const startPointRef = useRef<HTMLInputElement>(null)
   const endPointRef = useRef<HTMLInputElement>(null)
@@ -47,11 +51,11 @@ const MapPageV2 = () => {
       travelMode: google.maps.TravelMode.DRIVING,
     })
 
-    const routeCoordinates = []
+    const tempRoute: { lat: number; lng: number }[] = []
     result.routes[0].legs.forEach((leg) => {
       leg.steps.forEach((step) => {
         step.path.forEach((point) => {
-          routeCoordinates.push({
+          tempRoute.push({
             lat: point.lat(),
             lng: point.lng(),
           })
@@ -59,18 +63,34 @@ const MapPageV2 = () => {
       })
     })
 
-    const simplified = simplifyRoute(routeCoordinates, 0.001)
+    const simplified = simplifyRoute(tempRoute, 0.001)
+    setRouteCoordinates(simplified)
+
+    console.log('routeCoordinates', routeCoordinates)
 
     console.log('simplified', simplified)
 
     setDirectionsResponse(result)
-    setDistance(result.routes[0].legs[0].distance.text)
+    // setDistance(result.routes[0].legs[0].distance.text)
     setDuration(result.routes[0].legs[0].duration.text)
+  }, [routeCoordinates])
 
-    console.log('direction response', result)
-    console.log('distance', distance)
-    console.log('duration', duration)
-  }, [distance, duration])
+  const thresholdDistance = 2 // Adjust the threshold distance as needed (in kilometers)
+
+  const filteredMarkers = mockMarkers.filter((marker) => {
+    for (const point of routeCoordinates) {
+      const distance = calculateDistance(
+        marker.latitude,
+        marker.longitude,
+        point.lat,
+        point.lng
+      )
+      if (distance <= thresholdDistance) {
+        return true // Marker is within the threshold distance of at least one point
+      }
+    }
+    return false // Marker is not within the threshold distance of any point
+  })
 
   if (!isLoaded) {
     return <div>Loading...</div>
@@ -146,13 +166,21 @@ const MapPageV2 = () => {
         }}
       >
         {/* Child components, such as markers, info windows, etc. */}
-        {mockMarkers.map((marker) => (
-          <Marker
-            key={marker.id}
-            position={{ lat: marker.latitude, lng: marker.longitude }}
-            icon={marker.type}
-          />
-        ))}
+        {directionsResponse
+          ? filteredMarkers.map((marker) => (
+              <Marker
+                key={marker.id}
+                position={{ lat: marker.latitude, lng: marker.longitude }}
+                icon={marker.type}
+              />
+            ))
+          : mockMarkers.map((marker) => (
+              <Marker
+                key={marker.id}
+                position={{ lat: marker.latitude, lng: marker.longitude }}
+                icon={marker.type}
+              />
+            ))}
         {directionsResponse && (
           <DirectionsRenderer directions={directionsResponse} />
         )}
@@ -172,7 +200,6 @@ const MapPageV2 = () => {
               </div>
               <div
                 className={clsx(
-                  //   'absolute bottom-0 left-0',
                   'relative',
                   'w-full bg-[#F6F6F6] z-10',
                   'flex flex-col gap-y-[10px] py-3 px-4 pb-36'
