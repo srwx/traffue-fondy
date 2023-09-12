@@ -5,12 +5,14 @@ import {
   useJsApiLoader,
   Marker,
   Autocomplete,
+  DirectionsRenderer,
 } from '@react-google-maps/api'
 import { mockMarkers } from '@/const/mockMarkers'
 import { PinIcon, SearchIcon, TraffueFondyIcon } from '@/icons'
 import Tabs from '@/components/Tabs'
 import clsx from 'clsx'
 import Input from '@/components/Input'
+import { simplifyRoute } from '@/utils/simplifyRoute'
 
 const bangkokCenter = {
   lat: 13.7564,
@@ -19,6 +21,11 @@ const bangkokCenter = {
 
 const MapPageV2 = () => {
   const [isSelectedTitle1, setIsSelectedTitle1] = useState(true)
+  const [directionsResponse, setDirectionsResponse] =
+    useState<google.maps.DirectionsResult | null>(null)
+  const [distance, setDistance] = useState('')
+  const [duration, setDuration] = useState('')
+
   const startPointRef = useRef<HTMLInputElement>(null)
   const endPointRef = useRef<HTMLInputElement>(null)
 
@@ -28,6 +35,41 @@ const MapPageV2 = () => {
     googleMapsApiKey: apiKey,
     libraries: ['places'],
   })
+
+  const calculateRoute = useCallback(async () => {
+    if (!startPointRef.current?.value || !endPointRef.current?.value) return
+
+    const directionsService = new google.maps.DirectionsService()
+    const result = await directionsService.route({
+      origin: startPointRef.current.value,
+      destination: endPointRef.current.value,
+      travelMode: google.maps.TravelMode.DRIVING,
+    })
+
+    const routeCoordinates = []
+    result.routes[0].legs.forEach((leg) => {
+      leg.steps.forEach((step) => {
+        step.path.forEach((point) => {
+          routeCoordinates.push({
+            lat: point.lat(),
+            lng: point.lng(),
+          })
+        })
+      })
+    })
+
+    const simplified = simplifyRoute(routeCoordinates, 0.001)
+
+    console.log('simplified', simplified)
+
+    setDirectionsResponse(result)
+    setDistance(result.routes[0].legs[0].distance.text)
+    setDuration(result.routes[0].legs[0].duration.text)
+
+    console.log('direction response', result)
+    console.log('distance', distance)
+    console.log('duration', duration)
+  }, [distance, duration])
 
   if (!isLoaded) {
     return <div>Loading...</div>
@@ -84,6 +126,12 @@ const MapPageV2 = () => {
             </Autocomplete>
           </div>
         </div>
+        <button
+          className="w-full py-2 rounded text-center bg-primary text-white"
+          onClick={calculateRoute}
+        >
+          คำนวนระยะทาง
+        </button>
       </div>
 
       <GoogleMap
@@ -105,6 +153,9 @@ const MapPageV2 = () => {
             icon={marker.type}
           />
         ))}
+        {directionsResponse && (
+          <DirectionsRenderer directions={directionsResponse} />
+        )}
       </GoogleMap>
     </div>
   )
