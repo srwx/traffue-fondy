@@ -45,29 +45,12 @@ const MapPageV2 = () => {
         onClickTitle1={() => setIsSelectedTitle1(true)}
         onClickTitle2={() => setIsSelectedTitle1(false)}
       />
-      <GoogleMap
-        mapContainerStyle={{ width: '100%', height: '90%' }}
-        center={bangkokCenter}
-        zoom={15}
-        options={{
-          mapTypeControl: false,
-          streetViewControl: false,
-          zoomControl: false,
-          fullscreenControl: false,
-        }}
-      >
-        {/* Child components, such as markers, info windows, etc. */}
-        {mockMarkers.map((marker) => (
-          <Marker
-            key={marker.id}
-            position={{ lat: marker.latitude, lng: marker.longitude }}
-            icon={marker.type}
-          />
-        ))}
-      </GoogleMap>
+
       <div
         className={clsx(
-          'absolute bottom-0 left-0 w-full bg-[#F6F6F6] z-10',
+          //   'absolute bottom-0 left-0',
+          'relative',
+          'w-full bg-[#F6F6F6] z-10',
           'flex flex-col gap-y-[10px] py-3 px-4'
         )}
       >
@@ -102,6 +85,27 @@ const MapPageV2 = () => {
           </div>
         </div>
       </div>
+
+      <GoogleMap
+        mapContainerStyle={{ width: '100%', height: '90%' }}
+        center={bangkokCenter}
+        zoom={15}
+        options={{
+          mapTypeControl: false,
+          streetViewControl: false,
+          zoomControl: false,
+          fullscreenControl: false,
+        }}
+      >
+        {/* Child components, such as markers, info windows, etc. */}
+        {mockMarkers.map((marker) => (
+          <Marker
+            key={marker.id}
+            position={{ lat: marker.latitude, lng: marker.longitude }}
+            icon={marker.type}
+          />
+        ))}
+      </GoogleMap>
     </div>
   )
 }
