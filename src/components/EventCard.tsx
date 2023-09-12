@@ -5,27 +5,26 @@ export interface EventCardProps {
   eventName: string
   locationName: string
   date: string
-  image?: string
+  time: string
   latitude: number
   longitude: number
+  type: string // TODO: now is path to svg, refactor to enum and mapper
 }
 
 const EventCard = (props: EventCardProps) => {
-  const { eventName, locationName, date, image } = props
+  const { eventName, locationName, date, time } = props
 
   return (
-    <div className="flex flex-col gap-y-2 bg-white p-3 rounded-lg">
-      {image && (
-        <div className="w-full h-[100px] rounded-lg relative">
-          <Image src={image} alt="event" fill className="rounded-lg" />
-        </div>
-      )}
+    <div className="flex flex-col gap-y-1 bg-white p-3 rounded-lg">
       <span className="font-bold text-xs text-black">{eventName}</span>
       <p className="text-xs text-black">
-        สถานที่: <b>{locationName}</b>
+        <span className="text-[#8E8E8E]">สถานที่:</span> <b>{locationName}</b>
       </p>
       <p className="text-xs text-black">
-        วัน-เวลา: <b>{date}</b>
+        <span className="text-[#8E8E8E]">วัน-เวลา:</span> <b>{date}</b>
+      </p>
+      <p className="text-xs text-black">
+        <span className="text-[#8E8E8E]">ช่วงเวลา</span> <b>{time}</b>
       </p>
     </div>
   )
