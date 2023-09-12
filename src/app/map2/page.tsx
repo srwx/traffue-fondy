@@ -1,6 +1,11 @@
 'use client'
 import React, { useCallback, useRef, useState } from 'react'
-import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api'
+import {
+  GoogleMap,
+  useJsApiLoader,
+  Marker,
+  Autocomplete,
+} from '@react-google-maps/api'
 import { mockMarkers } from '@/const/mockMarkers'
 import { PinIcon, SearchIcon, TraffueFondyIcon } from '@/icons'
 import Tabs from '@/components/Tabs'
@@ -21,6 +26,7 @@ const MapPageV2 = () => {
 
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: apiKey,
+    libraries: ['places'],
   })
 
   if (!isLoaded) {
@@ -73,22 +79,26 @@ const MapPageV2 = () => {
           <PinIcon />
           <div className="flex flex-col gap-y-1 w-full">
             <span className="text-sm text-[#7A7A7A]">ตำแหน่งที่ตั้งของคุณ</span>
-            <Input
-              ref={startPointRef}
-              placeholder="พิมพ์ตำแหน่งที่ตั้งของคุณ"
-              leftIcon={<SearchIcon />}
-            />
+            <Autocomplete>
+              <Input
+                ref={startPointRef}
+                placeholder="พิมพ์ตำแหน่งที่ตั้งของคุณ"
+                leftIcon={<SearchIcon />}
+              />
+            </Autocomplete>
           </div>
         </div>
         <div className="flex gap-x-1 w-full">
           <PinIcon stroke="#F94A00" />
           <div className="flex flex-col gap-y-1 w-full">
             <span className="text-sm text-[#7A7A7A]">ไปยัง</span>
-            <Input
-              ref={startPointRef}
-              placeholder="พิมพ์จุดหมายของคุณ"
-              leftIcon={<SearchIcon />}
-            />
+            <Autocomplete>
+              <Input
+                ref={endPointRef}
+                placeholder="พิมพ์จุดหมายของคุณ"
+                leftIcon={<SearchIcon />}
+              />
+            </Autocomplete>
           </div>
         </div>
       </div>
