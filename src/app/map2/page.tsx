@@ -12,23 +12,8 @@ const MapPageV2 = () => {
   const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY || ''
 
   const { isLoaded } = useJsApiLoader({
-    id: 'google-map-script',
     googleMapsApiKey: apiKey,
   })
-
-  const [map, setMap] = useState<google.maps.Map | null>(null)
-
-  const onLoad = useCallback((map: google.maps.Map) => {
-    // This is just an example of getting and using the map instance!!! don't just blindly copy!
-    const bounds = new window.google.maps.LatLngBounds(bangkokCenter)
-    map.fitBounds(bounds)
-
-    setMap(map)
-  }, [])
-
-  const onUnmount = useCallback((map: google.maps.Map) => {
-    setMap(null)
-  }, [])
 
   if (!isLoaded) {
     return <div>Loading...</div>
@@ -39,9 +24,7 @@ const MapPageV2 = () => {
       <GoogleMap
         mapContainerStyle={{ width: '100%', height: '100%' }}
         center={bangkokCenter}
-        zoom={10}
-        onLoad={onLoad}
-        onUnmount={onUnmount}
+        zoom={15}
         options={{
           mapTypeControl: false,
           streetViewControl: false,
