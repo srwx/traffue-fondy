@@ -13,6 +13,7 @@ import Tabs from '@/components/Tabs'
 import clsx from 'clsx'
 import Input from '@/components/Input'
 import { simplifyRoute } from '@/utils/simplifyRoute'
+import { Drawer } from 'vaul'
 
 const bangkokCenter = {
   lat: 13.7564,
@@ -87,7 +88,6 @@ const MapPageV2 = () => {
         onClickTitle1={() => setIsSelectedTitle1(true)}
         onClickTitle2={() => setIsSelectedTitle1(false)}
       />
-
       <div
         className={clsx(
           //   'absolute bottom-0 left-0',
@@ -127,7 +127,7 @@ const MapPageV2 = () => {
           </div>
         </div>
         <button
-          className="w-full py-2 rounded text-center bg-primary text-white"
+          className="w-full py-2 rounded-lg text-center bg-primary text-white"
           onClick={calculateRoute}
         >
           คำนวนระยะทาง
@@ -157,6 +157,33 @@ const MapPageV2 = () => {
           <DirectionsRenderer directions={directionsResponse} />
         )}
       </GoogleMap>
+      {directionsResponse && (
+        <Drawer.Root>
+          <Drawer.Trigger asChild>
+            <button className="absolute p-2 bottom-[2%] right-[30%] bg-primary text-white rounded-full">
+              กดเพื่อดูปัญหาจราจร
+            </button>
+          </Drawer.Trigger>
+          <Drawer.Portal>
+            <Drawer.Overlay className="fixed inset-0 bg-black/40 z-10" />
+            <Drawer.Content className="bg-zinc-100 flex flex-col rounded-t-[10px] mt-24 fixed bottom-0 left-0 right-0 z-20">
+              <div className="pt-4 bg-[#F6F6F6] rounded-t-[10px] flex-1">
+                <div className="mx-auto w-12 h-1.5 flex-shrink-0 rounded-full bg-zinc-300" />
+              </div>
+              <div
+                className={clsx(
+                  //   'absolute bottom-0 left-0',
+                  'relative',
+                  'w-full bg-[#F6F6F6] z-10',
+                  'flex flex-col gap-y-[10px] py-3 px-4 pb-36'
+                )}
+              >
+                <span>TODO: ปัญหาที่เจอระหว่างทาง</span>
+              </div>
+            </Drawer.Content>
+          </Drawer.Portal>
+        </Drawer.Root>
+      )}
     </div>
   )
 }
