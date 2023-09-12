@@ -71,8 +71,8 @@ const MapPageV2 = () => {
     console.log('simplified', simplified)
 
     setDirectionsResponse(result)
-    // setDistance(result.routes[0].legs[0].distance.text)
-    setDuration(result.routes[0].legs[0].duration.text)
+    setDistance(result.routes[0].legs[0].distance?.text || '-')
+    setDuration(result.routes[0].legs[0].duration?.text || '-')
   }, [routeCoordinates])
 
   const thresholdDistance = 2 // Adjust the threshold distance as needed (in kilometers)
