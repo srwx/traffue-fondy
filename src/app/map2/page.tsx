@@ -5,6 +5,7 @@ import {
   useJsApiLoader,
   Marker,
   DirectionsRenderer,
+  InfoWindow,
 } from '@react-google-maps/api'
 import { mockMarkers } from '@/const/mockMarkers'
 import { TraffueFondyIcon } from '@/icons'
@@ -12,11 +13,15 @@ import Tabs from '@/components/Tabs'
 import { calculateDistance } from '@/utils/calculateDistance'
 import DirectionInput from '@/features/traffic-problem/components/DirectionInput'
 import ProblemsDrawer from '@/features/traffic-problem/components/ProblemsDrawer'
+import { EventCardProps } from '@/components/EventCard'
+import MarkerPopup from '@/features/traffic-problem/components/MarkerPopup'
 
 const bangkokCenter = {
   lat: 13.7564,
   lng: 100.5018,
 }
+
+type InfoWindowDataProps = EventCardProps & { id: number }
 
 const MapPageV2 = () => {
   const [isSelectedTitle1, setIsSelectedTitle1] = useState(true)
@@ -27,6 +32,9 @@ const MapPageV2 = () => {
   const [routeCoordinates, setRouteCoordinates] = useState<
     { lat: number; lng: number }[]
   >([])
+  const [isInfoWindowOpen, setIsInfoWindowOpen] = useState(false)
+  const [infoWindowData, setInfoWindowData] =
+    useState<InfoWindowDataProps | null>(null)
 
   const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY || ''
 
@@ -34,6 +42,11 @@ const MapPageV2 = () => {
     googleMapsApiKey: apiKey,
     libraries: ['places'],
   })
+
+  const handleMarkerClick = (props: InfoWindowDataProps) => {
+    setInfoWindowData(props)
+    setIsInfoWindowOpen(true)
+  }
 
   const thresholdDistance = 2 // Adjust the threshold distance as needed (in kilometers)
 
@@ -101,7 +114,14 @@ const MapPageV2 = () => {
                 key={marker.id}
                 position={{ lat: marker.latitude, lng: marker.longitude }}
                 icon={marker.type}
-              />
+                onClick={() => handleMarkerClick(marker)}
+              >
+                {isInfoWindowOpen && infoWindowData?.id === marker.id && (
+                  <InfoWindow onCloseClick={() => setIsInfoWindowOpen(false)}>
+                    <MarkerPopup {...marker} />
+                  </InfoWindow>
+                )}
+              </Marker>
             ))}
         {directionsResponse && (
           <DirectionsRenderer directions={directionsResponse} />
