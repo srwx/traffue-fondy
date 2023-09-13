@@ -1,19 +1,14 @@
 'use client'
-import React, { useCallback, useRef, useState } from 'react'
+import React, { useState } from 'react'
 import {
   GoogleMap,
   useJsApiLoader,
   Marker,
-  Autocomplete,
   DirectionsRenderer,
 } from '@react-google-maps/api'
 import { mockMarkers } from '@/const/mockMarkers'
-import { PinIcon, SearchIcon, TraffueFondyIcon } from '@/icons'
+import { TraffueFondyIcon } from '@/icons'
 import Tabs from '@/components/Tabs'
-import clsx from 'clsx'
-import Input from '@/components/Input'
-import { simplifyRoute } from '@/utils/simplifyRoute'
-import { Drawer } from 'vaul'
 import { calculateDistance } from '@/utils/calculateDistance'
 import DirectionInput from '@/features/traffic-problem/components/DirectionInput'
 import ProblemsDrawer from '@/features/traffic-problem/components/ProblemsDrawer'
