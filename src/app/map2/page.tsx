@@ -108,7 +108,14 @@ const MapPageV2 = () => {
                 key={marker.id}
                 position={{ lat: marker.latitude, lng: marker.longitude }}
                 icon={getMarkerType(marker.type)}
-              />
+                onClick={() => handleMarkerClick(marker)}
+              >
+                {isInfoWindowOpen && infoWindowData?.id === marker.id && (
+                  <InfoWindow onCloseClick={() => setIsInfoWindowOpen(false)}>
+                    <MarkerPopup {...marker} />
+                  </InfoWindow>
+                )}
+              </Marker>
             ))
           : mockMarkers.map((marker) => (
               <Marker
