@@ -15,6 +15,7 @@ import Input from '@/components/Input'
 import { simplifyRoute } from '@/utils/simplifyRoute'
 import { Drawer } from 'vaul'
 import { calculateDistance } from '@/utils/calculateDistance'
+import DirectionInput from '@/features/traffic-problem/DirectionInput'
 
 const bangkokCenter = {
   lat: 13.7564,
@@ -31,49 +32,12 @@ const MapPageV2 = () => {
     { lat: number; lng: number }[]
   >([])
 
-  const startPointRef = useRef<HTMLInputElement>(null)
-  const endPointRef = useRef<HTMLInputElement>(null)
-
   const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY || ''
 
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: apiKey,
     libraries: ['places'],
   })
-
-  const calculateRoute = useCallback(async () => {
-    if (!startPointRef.current?.value || !endPointRef.current?.value) return
-
-    const directionsService = new google.maps.DirectionsService()
-    const result = await directionsService.route({
-      origin: startPointRef.current.value,
-      destination: endPointRef.current.value,
-      travelMode: google.maps.TravelMode.DRIVING,
-    })
-
-    const tempRoute: { lat: number; lng: number }[] = []
-    result.routes[0].legs.forEach((leg) => {
-      leg.steps.forEach((step) => {
-        step.path.forEach((point) => {
-          tempRoute.push({
-            lat: point.lat(),
-            lng: point.lng(),
-          })
-        })
-      })
-    })
-
-    const simplified = simplifyRoute(tempRoute, 0.001)
-    setRouteCoordinates(simplified)
-
-    console.log('routeCoordinates', routeCoordinates)
-
-    console.log('simplified', simplified)
-
-    setDirectionsResponse(result)
-    setDistance(result.routes[0].legs[0].distance?.text || '-')
-    setDuration(result.routes[0].legs[0].duration?.text || '-')
-  }, [routeCoordinates])
 
   const thresholdDistance = 2 // Adjust the threshold distance as needed (in kilometers)
 
@@ -108,51 +72,13 @@ const MapPageV2 = () => {
         onClickTitle1={() => setIsSelectedTitle1(true)}
         onClickTitle2={() => setIsSelectedTitle1(false)}
       />
-      <div
-        className={clsx(
-          //   'absolute bottom-0 left-0',
-          'relative',
-          'w-full bg-[#F6F6F6] z-10',
-          'flex flex-col gap-y-[10px] py-3 px-4'
-        )}
-      >
-        <div className="absolute border-l-[2px] border-dotted border-[#CACACA] h-[42px] top-[67px] left-[24px]" />
-        <span className="text-sm font-medium text-primary">
-          เส้นทางที่ต้องการเดินทาง
-        </span>
-        <div className="flex gap-x-1 w-full">
-          <PinIcon />
-          <div className="flex flex-col gap-y-1 w-full">
-            <span className="text-sm text-[#7A7A7A]">ตำแหน่งที่ตั้งของคุณ</span>
-            <Autocomplete>
-              <Input
-                ref={startPointRef}
-                placeholder="พิมพ์ตำแหน่งที่ตั้งของคุณ"
-                leftIcon={<SearchIcon />}
-              />
-            </Autocomplete>
-          </div>
-        </div>
-        <div className="flex gap-x-1 w-full">
-          <PinIcon stroke="#F94A00" />
-          <div className="flex flex-col gap-y-1 w-full">
-            <span className="text-sm text-[#7A7A7A]">ไปยัง</span>
-            <Autocomplete>
-              <Input
-                ref={endPointRef}
-                placeholder="พิมพ์จุดหมายของคุณ"
-                leftIcon={<SearchIcon />}
-              />
-            </Autocomplete>
-          </div>
-        </div>
-        <button
-          className="w-full py-2 rounded-lg text-center bg-primary text-white"
-          onClick={calculateRoute}
-        >
-          คำนวนระยะทาง
-        </button>
-      </div>
+
+      <DirectionInput
+        setDirectionsResponse={setDirectionsResponse}
+        setDistance={setDistance}
+        setDuration={setDuration}
+        setRouteCoordinates={setRouteCoordinates}
+      />
 
       <GoogleMap
         mapContainerStyle={{ width: '100%', height: '90%' }}
