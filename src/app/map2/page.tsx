@@ -15,13 +15,14 @@ import DirectionInput from '@/features/traffic-problem/components/DirectionInput
 import ProblemsDrawer from '@/features/traffic-problem/components/ProblemsDrawer'
 import { EventCardProps } from '@/components/EventCard'
 import MarkerPopup from '@/features/traffic-problem/components/MarkerPopup'
+import { getMarkerType } from '@/utils/getMarkerType'
 
 const bangkokCenter = {
   lat: 13.7564,
   lng: 100.5018,
 }
 
-type InfoWindowDataProps = EventCardProps & { id: number }
+type InfoWindowDataProps = EventCardProps & { id: string }
 
 const MapPageV2 = () => {
   const [isSelectedTitle1, setIsSelectedTitle1] = useState(true)
@@ -48,7 +49,7 @@ const MapPageV2 = () => {
     setIsInfoWindowOpen(true)
   }
 
-  const thresholdDistance = 2 // Adjust the threshold distance as needed (in kilometers)
+  const thresholdDistance = 0.5 // Adjust the threshold distance as needed (in kilometers)
 
   const filteredMarkers = mockMarkers.filter((marker) => {
     for (const point of routeCoordinates) {
@@ -92,7 +93,7 @@ const MapPageV2 = () => {
       <GoogleMap
         mapContainerStyle={{ width: '100%', height: '90%' }}
         center={bangkokCenter}
-        zoom={15}
+        zoom={11}
         options={{
           mapTypeControl: false,
           streetViewControl: false,
@@ -106,14 +107,14 @@ const MapPageV2 = () => {
               <Marker
                 key={marker.id}
                 position={{ lat: marker.latitude, lng: marker.longitude }}
-                icon={marker.type}
+                icon={getMarkerType(marker.type)}
               />
             ))
           : mockMarkers.map((marker) => (
               <Marker
                 key={marker.id}
                 position={{ lat: marker.latitude, lng: marker.longitude }}
-                icon={marker.type}
+                icon={getMarkerType(marker.type)}
                 onClick={() => handleMarkerClick(marker)}
               >
                 {isInfoWindowOpen && infoWindowData?.id === marker.id && (

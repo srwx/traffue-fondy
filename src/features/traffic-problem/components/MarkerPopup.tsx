@@ -2,7 +2,7 @@ import { EventCardProps } from '@/components/EventCard'
 import clsx from 'clsx'
 import React from 'react'
 
-type MarkerPopupProps = EventCardProps & { id: number }
+type MarkerPopupProps = EventCardProps & { id: string }
 
 const MarkerPopup = (props: MarkerPopupProps) => {
   const { date, eventName, time, locationName } = props

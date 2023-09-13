@@ -1,3 +1,4 @@
+import { MARKER_TYPE } from '@/const/mockMarkers'
 import Image from 'next/image'
 import React from 'react'
 
@@ -8,7 +9,7 @@ export interface EventCardProps {
   time: string
   latitude: number
   longitude: number
-  type: string // TODO: now is path to svg, refactor to enum and mapper
+  type: MARKER_TYPE
 }
 
 const EventCard = (props: EventCardProps) => {
