@@ -226,7 +226,7 @@ export const mockMarkers: Array<EventCardProps & { id: string }> = [
     date: '13 ก.ย. 66',
     eventName: 'แจ้งปิดถนนสามเสน รับมือสถานการณ์ชุมนุม (1)',
     time: 'ตั้งแต่เที่ยงคืนจนเสร็จสิ้นภารกิจ',
-    type: MARKER_TYPE.ACCIDENT,
+    type: MARKER_TYPE.EVENT,
   },
   {
     id: uuidv4(),
@@ -236,7 +236,7 @@ export const mockMarkers: Array<EventCardProps & { id: string }> = [
     date: '13 ก.ย. 66',
     eventName: 'แจ้งปิดถนนสามเสน รับมือสถานการณ์ชุมนุม (2)',
     time: 'ตั้งแต่เที่ยงคืนจนเสร็จสิ้นภารกิจ',
-    type: MARKER_TYPE.ACCIDENT,
+    type: MARKER_TYPE.EVENT,
   },
   {
     id: uuidv4(),
@@ -247,7 +247,7 @@ export const mockMarkers: Array<EventCardProps & { id: string }> = [
     date: '15 ก.ย. 66',
     eventName: 'Bangkok Pride 2023 (1)',
     time: 'เริ่มเวลา 14.00 น. เป็นต้นไป',
-    type: MARKER_TYPE.ACCIDENT,
+    type: MARKER_TYPE.EVENT,
   },
   {
     id: uuidv4(),
@@ -258,7 +258,7 @@ export const mockMarkers: Array<EventCardProps & { id: string }> = [
     date: '15 ก.ย. 66',
     eventName: 'Bangkok Pride 2023 (2)',
     time: 'เริ่มเวลา 14.00 น. เป็นต้นไป',
-    type: MARKER_TYPE.ACCIDENT,
+    type: MARKER_TYPE.EVENT,
   },
   {
     id: uuidv4(),
@@ -268,7 +268,7 @@ export const mockMarkers: Array<EventCardProps & { id: string }> = [
     date: '15 ก.ย. 66',
     eventName: 'Run For Cover Fest #8 : Bangkok ft EMONIGHT BKK',
     time: '18:00 น.',
-    type: MARKER_TYPE.ACCIDENT,
+    type: MARKER_TYPE.EVENT,
   },
   {
     id: uuidv4(),
@@ -278,7 +278,7 @@ export const mockMarkers: Array<EventCardProps & { id: string }> = [
     date: '13 ก.ย. 66',
     eventName: 'Run For Cover : Taylor Swift Edition Bangkok',
     time: '17:00-23:30 น.',
-    type: MARKER_TYPE.ACCIDENT,
+    type: MARKER_TYPE.EVENT,
   },
   {
     id: uuidv4(),
@@ -289,7 +289,7 @@ export const mockMarkers: Array<EventCardProps & { id: string }> = [
     eventName:
       'Heineken Experience Silver Presents WHAT THE DUCK FAMILY & FRIENDS PARTY',
     time: '11:00 น.',
-    type: MARKER_TYPE.ACCIDENT,
+    type: MARKER_TYPE.EVENT,
   },
   {
     id: uuidv4(),
@@ -299,7 +299,7 @@ export const mockMarkers: Array<EventCardProps & { id: string }> = [
     date: '13-15 ก.ย. 66',
     eventName: 'พิธีซ้อมพระราชทานปริญญาบัตร',
     time: '8:00-16:00 น.',
-    type: MARKER_TYPE.ACCIDENT,
+    type: MARKER_TYPE.EVENT,
   },
   {
     id: uuidv4(),
@@ -309,7 +309,7 @@ export const mockMarkers: Array<EventCardProps & { id: string }> = [
     date: '15-17 ก.ย. 66',
     eventName: 'พิธีซ้อมพระราชทานปริญญาบัตร',
     time: '8:00-16:00 น.',
-    type: MARKER_TYPE.ACCIDENT,
+    type: MARKER_TYPE.EVENT,
   },
   {
     id: uuidv4(),
@@ -319,7 +319,7 @@ export const mockMarkers: Array<EventCardProps & { id: string }> = [
     date: '15-17 ก.ย. 66',
     eventName: 'พิธีซ้อมพระราชทานปริญญาบัตร',
     time: '8:00-16:00 น.',
-    type: MARKER_TYPE.ACCIDENT,
+    type: MARKER_TYPE.EVENT,
   },
   // <!-- Delayed -->
   {
