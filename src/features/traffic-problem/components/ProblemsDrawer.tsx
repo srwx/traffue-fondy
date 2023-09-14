@@ -30,7 +30,12 @@ const ProblemsDrawer = ({ problemList }: ProblemsDrawerProps) => {
             )}
           >
             <span className="text-primary text-sm">ปัญหาที่พบในเส้นทาง</span>
-            <div className="[&>*:not(:last-child)]:border-b-[1px] border-[#E9E9E9] h-full max-h-[calc(100%-30px)] overflow-y-auto">
+            <div
+              className={clsx(
+                '[&>*:not(:last-child)]:border-b-[1px] border-[#E9E9E9] h-full max-h-[calc(100%-30px)] overflow-y-auto',
+                'bg-white px-4 rounded-lg'
+              )}
+            >
               {problemList.map((problem) => (
                 <ProblemCard key={problem.id} {...problem} />
               ))}

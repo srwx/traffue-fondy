@@ -7,7 +7,7 @@ const ProblemCard = (props: EventCardProps & { id: string }) => {
   const markerComponent = getMarkerType(type)
 
   return (
-    <div className="flex items-center gap-x-3 py-2">
+    <div className="flex items-center gap-x-3 py-4">
       <div>{markerComponent}</div>
 
       <div className="flex flex-col">
