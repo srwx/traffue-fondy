@@ -12,7 +12,13 @@ const ProblemsDrawer = ({ problemList }: ProblemsDrawerProps) => {
   return (
     <Drawer.Root>
       <Drawer.Trigger asChild>
-        <button className="absolute bottom-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#FFF7F2] text-secondary font-medium rounded-[36px] py-1 px-4 whitespace-nowrap">
+        <button
+          className="absolute bottom-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#FFF7F2] text-secondary font-medium rounded-[36px] py-1 px-4 whitespace-nowrap"
+          style={{
+            boxShadow:
+              '0px 0.97323px 1.85378px 0px rgba(0, 0, 0, 0.01), 0px 2.26284px 4.31018px 0px rgba(0, 0, 0, 0.02), 0px 4.06354px 7.74008px 0px rgba(0, 0, 0, 0.02), 0px 6.74397px 12.84566px 0px rgba(0, 0, 0, 0.03), 0px 11.11047px 21.16279px 0px rgba(0, 0, 0, 0.03), 0px 25px 36.98642px 0px rgba(0, 0, 0, 0.04), 0px -13px 80px 0px rgba(0, 0, 0, 0.05)',
+          }}
+        >
           ดูปัญหาที่พบในเส้นทาง
         </button>
       </Drawer.Trigger>
