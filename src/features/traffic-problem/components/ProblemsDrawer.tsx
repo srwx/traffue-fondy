@@ -18,7 +18,7 @@ const ProblemsDrawer = ({ problemList }: ProblemsDrawerProps) => {
       </Drawer.Trigger>
       <Drawer.Portal>
         <Drawer.Overlay className="fixed inset-0 bg-black/40 z-10" />
-        <Drawer.Content className="bg-zinc-100 flex flex-col rounded-t-[10px] mt-24 fixed bottom-0 left-0 right-0 z-20 max-h-[45vh]">
+        <Drawer.Content className="bg-zinc-100 flex flex-col rounded-t-[10px] mt-24 fixed bottom-0 left-0 right-0 z-20 h-[45vh]">
           <div className="pt-4 bg-[#F6F6F6] rounded-t-[10px] flex-1">
             <div className="mx-auto w-12 h-1.5 flex-shrink-0 rounded-full bg-zinc-300" />
           </div>
@@ -26,20 +26,28 @@ const ProblemsDrawer = ({ problemList }: ProblemsDrawerProps) => {
             className={clsx(
               'relative',
               'w-full h-full bg-[#F6F6F6] z-10',
-              'flex flex-col gap-y-[10px] py-3 px-4 pb-36'
+              'flex flex-col gap-y-[10px] py-3 px-4'
             )}
           >
-            <span className="text-primary text-sm">ปัญหาที่พบในเส้นทาง</span>
-            <div
-              className={clsx(
-                '[&>*:not(:last-child)]:border-b-[1px] border-[#E9E9E9] h-full max-h-[calc(100%-30px)] overflow-y-auto',
-                'bg-white px-4 rounded-lg'
-              )}
-            >
-              {problemList.map((problem) => (
-                <ProblemCard key={problem.id} {...problem} />
-              ))}
-            </div>
+            <span className="text-primary text-sm font-medium">
+              ปัญหาที่พบในเส้นทาง
+            </span>
+            {problemList.length > 0 ? (
+              <div
+                className={clsx(
+                  '[&>*:not(:last-child)]:border-b-[1px] border-[#E9E9E9] h-full max-h-[calc(100%-30px)] overflow-y-auto',
+                  'bg-white px-4 rounded-lg'
+                )}
+              >
+                {problemList.map((problem) => (
+                  <ProblemCard key={problem.id} {...problem} />
+                ))}
+              </div>
+            ) : (
+              <div className="w-full h-full flex justify-center items-center text-[#7A7A7A] pt-10">
+                ไม่พบปัญหาในเส้นทาง
+              </div>
+            )}
           </div>
         </Drawer.Content>
       </Drawer.Portal>
