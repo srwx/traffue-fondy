@@ -71,7 +71,7 @@ const MapPageV2 = () => {
   }
 
   return (
-    <div className="w-screen h-screen flex flex-col items-center relative">
+    <div className="w-screen h-screen max-h-[100dvh] overflow-y-hidden flex flex-col items-center relative">
       <div className="py-1">
         <TraffueFondyIcon width={130} height={40} />
       </div>
