@@ -56,8 +56,6 @@ const MapPageV2 = () => {
 
   const filteredMarkers = useMemo(() => {
     return mockMarkers.filter((marker) => {
-      if (!selectedMarkerTypes.includes(marker.type)) return false
-
       for (const point of routeCoordinates) {
         const distance = calculateDistance(
           marker.latitude,
@@ -66,7 +64,12 @@ const MapPageV2 = () => {
           point.lng
         )
         if (distance <= thresholdDistance) {
-          return true // Marker is within the threshold distance of at least one point
+          if (
+            selectedMarkerTypes.includes(marker.type) ||
+            !selectedMarkerTypes.length
+          ) {
+            return true // Marker is within the threshold distance of at least one point
+          }
         }
       }
       return false // Marker is not within the threshold distance of any point
