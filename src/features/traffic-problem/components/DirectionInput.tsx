@@ -4,6 +4,8 @@ import { simplifyRoute } from '@/utils/simplifyRoute'
 import { Autocomplete } from '@react-google-maps/api'
 import clsx from 'clsx'
 import React, { useEffect, useRef, useState } from 'react'
+import SelectedMarkerTypeButtons from './SelectedMarkerTypeButtons'
+import { MARKER_TYPE } from '@/const/mockMarkers'
 
 interface DirectionInputProps {
   setDirectionsResponse: React.Dispatch<
@@ -19,6 +21,8 @@ interface DirectionInputProps {
       }[]
     >
   >
+  selectedMarkerTypes: MARKER_TYPE[]
+  setSelectedMarkerTypes: React.Dispatch<React.SetStateAction<MARKER_TYPE[]>>
 }
 
 const DirectionInput = (props: DirectionInputProps) => {
@@ -27,6 +31,8 @@ const DirectionInput = (props: DirectionInputProps) => {
     setDistance,
     setDuration,
     setRouteCoordinates,
+    selectedMarkerTypes,
+    setSelectedMarkerTypes,
   } = props
 
   const [originPoint, setOriginPoint] =
@@ -140,6 +146,13 @@ const DirectionInput = (props: DirectionInputProps) => {
           </Autocomplete>
         </div>
       </div>
+
+      <hr className="border-t-[0.5px] border-[#DFDFDF]" />
+
+      <SelectedMarkerTypeButtons
+        selectedMarkerTypes={selectedMarkerTypes}
+        setSelectedMarkerTypes={setSelectedMarkerTypes}
+      />
     </div>
   )
 }

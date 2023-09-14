@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import {
   GoogleMap,
   useJsApiLoader,
@@ -7,7 +7,7 @@ import {
   DirectionsRenderer,
   InfoWindow,
 } from '@react-google-maps/api'
-import { mockMarkers } from '@/const/mockMarkers'
+import { MARKER_TYPE, mockMarkers } from '@/const/mockMarkers'
 import { TraffueFondyIcon } from '@/icons'
 import Tabs from '@/components/Tabs'
 import { calculateDistance } from '@/utils/calculateDistance'
@@ -36,6 +36,9 @@ const MapPageV2 = () => {
   const [isInfoWindowOpen, setIsInfoWindowOpen] = useState(false)
   const [infoWindowData, setInfoWindowData] =
     useState<InfoWindowDataProps | null>(null)
+  const [selectedMarkerTypes, setSelectedMarkerTypes] = useState<MARKER_TYPE[]>(
+    []
+  )
 
   const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY || ''
 
@@ -51,20 +54,32 @@ const MapPageV2 = () => {
 
   const thresholdDistance = 0.7 // Adjust the threshold distance as needed (in kilometers)
 
-  const filteredMarkers = mockMarkers.filter((marker) => {
-    for (const point of routeCoordinates) {
-      const distance = calculateDistance(
-        marker.latitude,
-        marker.longitude,
-        point.lat,
-        point.lng
-      )
-      if (distance <= thresholdDistance) {
-        return true // Marker is within the threshold distance of at least one point
+  const filteredMarkers = useMemo(() => {
+    return mockMarkers.filter((marker) => {
+      if (!selectedMarkerTypes.includes(marker.type)) return false
+
+      for (const point of routeCoordinates) {
+        const distance = calculateDistance(
+          marker.latitude,
+          marker.longitude,
+          point.lat,
+          point.lng
+        )
+        if (distance <= thresholdDistance) {
+          return true // Marker is within the threshold distance of at least one point
+        }
       }
-    }
-    return false // Marker is not within the threshold distance of any point
-  })
+      return false // Marker is not within the threshold distance of any point
+    })
+  }, [routeCoordinates, selectedMarkerTypes])
+
+  const filteredMockMarkers = useMemo(() => {
+    if (selectedMarkerTypes.length === 0) return mockMarkers
+
+    return mockMarkers.filter((marker) => {
+      return selectedMarkerTypes.includes(marker.type)
+    })
+  }, [selectedMarkerTypes])
 
   if (!isLoaded) {
     return <div>Loading...</div>
@@ -88,6 +103,8 @@ const MapPageV2 = () => {
         setDistance={setDistance}
         setDuration={setDuration}
         setRouteCoordinates={setRouteCoordinates}
+        selectedMarkerTypes={selectedMarkerTypes}
+        setSelectedMarkerTypes={setSelectedMarkerTypes}
       />
 
       <GoogleMap
@@ -117,7 +134,7 @@ const MapPageV2 = () => {
                 )}
               </Marker>
             ))
-          : mockMarkers.map((marker) => (
+          : filteredMockMarkers.map((marker) => (
               <Marker
                 key={marker.id}
                 position={{ lat: marker.latitude, lng: marker.longitude }}
