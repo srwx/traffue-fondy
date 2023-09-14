@@ -6,8 +6,8 @@ const ProblemsDrawer = () => {
   return (
     <Drawer.Root>
       <Drawer.Trigger asChild>
-        <button className="absolute p-2 bottom-[2%] right-[30%] bg-primary text-white rounded-full">
-          กดเพื่อดูปัญหาจราจร
+        <button className="absolute bottom-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#FFF7F2] text-secondary font-medium rounded-[36px] py-1 px-4 whitespace-nowrap">
+          ดูปัญหาที่พบในเส้นทาง
         </button>
       </Drawer.Trigger>
       <Drawer.Portal>
