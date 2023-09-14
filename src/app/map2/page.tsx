@@ -72,8 +72,8 @@ const MapPageV2 = () => {
 
   return (
     <div className="w-screen h-screen flex flex-col items-center relative">
-      <div className="py-2">
-        <TraffueFondyIcon width={80} height={40} />
+      <div className="py-1">
+        <TraffueFondyIcon width={130} height={40} />
       </div>
       <Tabs
         title1="ปัญหาจราจรทั่วไป"
