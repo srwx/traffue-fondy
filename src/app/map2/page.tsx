@@ -49,7 +49,7 @@ const MapPageV2 = () => {
     setIsInfoWindowOpen(true)
   }
 
-  const thresholdDistance = 0.5 // Adjust the threshold distance as needed (in kilometers)
+  const thresholdDistance = 0.7 // Adjust the threshold distance as needed (in kilometers)
 
   const filteredMarkers = mockMarkers.filter((marker) => {
     for (const point of routeCoordinates) {
