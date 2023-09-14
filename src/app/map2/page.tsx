@@ -15,7 +15,7 @@ import DirectionInput from '@/features/traffic-problem/components/DirectionInput
 import ProblemsDrawer from '@/features/traffic-problem/components/ProblemsDrawer'
 import { EventCardProps } from '@/components/EventCard'
 import MarkerPopup from '@/features/traffic-problem/components/MarkerPopup'
-import { getMarkerType } from '@/utils/getMarkerType'
+import { getMarkerTypeSvg } from '@/utils/getMarkerTypeSvg'
 
 const bangkokCenter = {
   lat: 13.7564,
@@ -107,7 +107,7 @@ const MapPageV2 = () => {
               <Marker
                 key={marker.id}
                 position={{ lat: marker.latitude, lng: marker.longitude }}
-                icon={getMarkerType(marker.type)}
+                icon={getMarkerTypeSvg(marker.type)}
                 onClick={() => handleMarkerClick(marker)}
               >
                 {isInfoWindowOpen && infoWindowData?.id === marker.id && (
@@ -121,7 +121,7 @@ const MapPageV2 = () => {
               <Marker
                 key={marker.id}
                 position={{ lat: marker.latitude, lng: marker.longitude }}
-                icon={getMarkerType(marker.type)}
+                icon={getMarkerTypeSvg(marker.type)}
                 onClick={() => handleMarkerClick(marker)}
               >
                 {isInfoWindowOpen && infoWindowData?.id === marker.id && (
@@ -135,7 +135,7 @@ const MapPageV2 = () => {
           <DirectionsRenderer directions={directionsResponse} />
         )}
       </GoogleMap>
-      {directionsResponse && <ProblemsDrawer />}
+      {directionsResponse && <ProblemsDrawer problemList={filteredMarkers} />}
     </div>
   )
 }
