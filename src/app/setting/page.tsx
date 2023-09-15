@@ -2,12 +2,12 @@
 import GrayButton from '@/components/GrayButton'
 import Navbar from '@/components/Navbar'
 import SwitchToggleButton from '@/components/SwitchToggleButton'
-import { bangkokDistrict } from '@/const/BangkokDistrict'
 import { ChevronDownIcon } from '@/icons'
 import clsx from 'clsx'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
+import { bangkokDistrict } from '@/const/bangkokDistrict'
 
 enum NOTIFICATION_FREQUENCY {
   ALL = 'ALL',
