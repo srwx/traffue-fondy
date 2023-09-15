@@ -64,13 +64,13 @@ const MapPageV2 = () => {
       ) : (
         <>
           <RealTimeProblemPage />
-          {/* <Image
+          <Image
             width={1170}
             height={1497}
             src={'/images/background/city.png'}
             alt="bg"
-            className="absolute -bottom-[calc(100dvh-90%)] left-0 md:hidden opacity-10"
-          /> */}
+            className="absolute -bottom-[calc(100dvh-87%)] left-0 md:hidden opacity-10"
+          />
         </>
       )}
     </div>
