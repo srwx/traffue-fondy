@@ -1,6 +1,6 @@
 import DropdownSelection from '@/components/primitives/Dropdown/Dropdown'
 import { cameraList } from '@/const/cameraList'
-import React, { useMemo, useState } from 'react'
+import React, { useState } from 'react'
 import ProblemInformation from './components/ProblemInformation'
 import { mockAiProblemDetection } from '@/const/mockAiProblemDetection'
 

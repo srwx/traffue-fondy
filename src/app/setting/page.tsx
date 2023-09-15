@@ -15,11 +15,19 @@ enum NOTIFICATION_FREQUENCY {
   ONCE_PER_WEEK = 'ONCE_PER_WEEK',
 }
 
+enum TOPIC_TYPE {
+  TRAFFIC = 'รถติดจากงานอีเว้นท์',
+  ROAD_CLOSED = 'การปิดถนน / ซ่อมถนนตามช่วงเวลา',
+  GARBAGE_TRUCK = 'รถติดจากรถเก็บขยะ / รถฉีดน้า',
+  ROAD_ACCIDENT = 'อุบัติเหตุบนถนน',
+}
+
 const SettingPage = () => {
   const [isNotificationEnabled, setIsNotificationEnabled] = useState(false)
   const [notificationFrequency, setNotificationFrequency] =
     useState<NOTIFICATION_FREQUENCY | null>(null)
-  const [selectedDistrict, setSelectedDistrict] = useState<string[]>([])
+  const [selectedDistricts, setSelectedDistricts] = useState<string[]>([])
+  const [selectedTopics, setSelectedTopics] = useState<TOPIC_TYPE[]>([])
 
   useEffect(() => {
     if (isNotificationEnabled && !notificationFrequency) {
@@ -83,9 +91,9 @@ const SettingPage = () => {
                   <GrayButton
                     disabled={!isNotificationEnabled}
                     onClick={() => {
-                      setSelectedDistrict([])
+                      setSelectedDistricts([])
                     }}
-                    active={selectedDistrict.length === 0}
+                    active={selectedDistricts.length === 0}
                   >
                     {'ทั้งหมด'}
                   </GrayButton>
@@ -94,17 +102,17 @@ const SettingPage = () => {
                       key={district}
                       disabled={!isNotificationEnabled}
                       onClick={() => {
-                        if (selectedDistrict.includes(district)) {
-                          setSelectedDistrict((prev) =>
+                        if (selectedDistricts.includes(district)) {
+                          setSelectedDistricts((prev) =>
                             prev.filter((d) => d !== district)
                           )
                           return
                         } else {
-                          setSelectedDistrict((prev) => [...prev, district])
+                          setSelectedDistricts((prev) => [...prev, district])
                           return
                         }
                       }}
-                      active={selectedDistrict.includes(district)}
+                      active={selectedDistricts.includes(district)}
                     >
                       {district}
                     </GrayButton>
@@ -113,6 +121,37 @@ const SettingPage = () => {
               </>
             )}
           </div>
+
+          {/* <!-- Topics setting box --> */}
+          {isNotificationEnabled && (
+            <div
+              className={clsx(
+                'border-[1px] border-[#ECECEC] rounded-lg',
+                'px-4 py-3 bg-white',
+                'flex flex-col gap-y-2',
+                'transition-all'
+              )}
+            >
+              <div className="flex flex-col gap-y-1">
+                <span className="text-base text-primary">
+                  เปิดการแจ้งเตือนรายเรื่อง
+                </span>
+                <span className="text-[#838383] text-sm">
+                  กรุณาเลือกเรื่องที่ต้องการรับแจ้งเตือน
+                </span>
+              </div>
+              <hr />
+              <GrayButton
+                disabled={!isNotificationEnabled}
+                active={notificationFrequency === NOTIFICATION_FREQUENCY.ALL}
+                onClick={() =>
+                  setNotificationFrequency(NOTIFICATION_FREQUENCY.ALL)
+                }
+              >
+                ทั้งหมด
+              </GrayButton>
+            </div>
+          )}
 
           {/* <!-- Frequency setting box --> */}
           <div
@@ -171,7 +210,10 @@ const SettingPage = () => {
         height={1497}
         src={'/images/background/city.png'}
         alt="bg"
-        className="absolute -bottom-[calc(100dvh-55%)] left-0 z-0 opacity-10 md:hidden"
+        className={clsx('absolute left-0 z-0 opacity-10 md:hidden', {
+          '-bottom-[calc(100dvh-100%)]': !isNotificationEnabled,
+          '-bottom-[calc(100dvh-35%)]': isNotificationEnabled,
+        })}
       />
     </div>
   )
