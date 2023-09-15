@@ -11,8 +11,8 @@ interface DirectionInputProps {
   setDirectionsResponse: React.Dispatch<
     React.SetStateAction<google.maps.DirectionsResult | null>
   >
-  setDistance: React.Dispatch<React.SetStateAction<string>>
-  setDuration: React.Dispatch<React.SetStateAction<string>>
+  // setDistance: React.Dispatch<React.SetStateAction<string>>
+  // setDuration: React.Dispatch<React.SetStateAction<string>>
   setRouteCoordinates: React.Dispatch<
     React.SetStateAction<
       {
@@ -23,22 +23,27 @@ interface DirectionInputProps {
   >
   selectedMarkerTypes: MARKER_TYPE[]
   setSelectedMarkerTypes: React.Dispatch<React.SetStateAction<MARKER_TYPE[]>>
+  originPoint: google.maps.places.PlaceResult | null
+  setOriginPoint: React.Dispatch<
+    React.SetStateAction<google.maps.places.PlaceResult | null>
+  >
+  destinationPoint: google.maps.places.PlaceResult | null
+  setDestinationPoint: React.Dispatch<
+    React.SetStateAction<google.maps.places.PlaceResult | null>
+  >
 }
 
 const DirectionInput = (props: DirectionInputProps) => {
   const {
     setDirectionsResponse,
-    setDistance,
-    setDuration,
     setRouteCoordinates,
     selectedMarkerTypes,
     setSelectedMarkerTypes,
+    originPoint,
+    setOriginPoint,
+    destinationPoint,
+    setDestinationPoint,
   } = props
-
-  const [originPoint, setOriginPoint] =
-    useState<google.maps.places.PlaceResult | null>(null)
-  const [destinationPoint, setDestinationPoint] =
-    useState<google.maps.places.PlaceResult | null>(null)
 
   const originAutocomplete = useRef<google.maps.places.Autocomplete | null>(
     null
@@ -77,8 +82,8 @@ const DirectionInput = (props: DirectionInputProps) => {
       setRouteCoordinates(simplified)
 
       setDirectionsResponse(result)
-      setDistance(result.routes[0].legs[0].distance?.text || '-')
-      setDuration(result.routes[0].legs[0].duration?.text || '-')
+      // setDistance(result.routes[0].legs[0].distance?.text || '-')
+      // setDuration(result.routes[0].legs[0].duration?.text || '-')
     }
 
     if (!originPoint || !destinationPoint) return
@@ -88,8 +93,6 @@ const DirectionInput = (props: DirectionInputProps) => {
     destinationPoint,
     originPoint,
     setDirectionsResponse,
-    setDistance,
-    setDuration,
     setRouteCoordinates,
   ])
 
@@ -123,6 +126,7 @@ const DirectionInput = (props: DirectionInputProps) => {
             <Input
               placeholder="พิมพ์ตำแหน่งที่ตั้งของคุณ"
               leftIcon={<SearchIcon />}
+              defaultValue={originPoint?.name || ''}
             />
           </Autocomplete>
         </div>
@@ -142,7 +146,11 @@ const DirectionInput = (props: DirectionInputProps) => {
               }
             }}
           >
-            <Input placeholder="พิมพ์จุดหมายของคุณ" leftIcon={<SearchIcon />} />
+            <Input
+              placeholder="พิมพ์จุดหมายของคุณ"
+              leftIcon={<SearchIcon />}
+              defaultValue={destinationPoint?.name || ''}
+            />
           </Autocomplete>
         </div>
       </div>

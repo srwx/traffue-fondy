@@ -16,11 +16,7 @@ import ProblemsDrawer from '@/features/traffic-problem/components/ProblemsDrawer
 import { EventCardProps } from '@/components/EventCard'
 import MarkerPopup from '@/features/traffic-problem/components/MarkerPopup'
 import { getMarkerTypeSvg } from '@/utils/getMarkerTypeSvg'
-
-const bangkokCenter = {
-  lat: 13.7564,
-  lng: 100.5018,
-}
+import TrafficProblemPage from '@/features/traffic-problem/TrafficProblemPage'
 
 type InfoWindowDataProps = EventCardProps & { id: string }
 
@@ -28,8 +24,6 @@ const MapPageV2 = () => {
   const [isSelectedTitle1, setIsSelectedTitle1] = useState(true)
   const [directionsResponse, setDirectionsResponse] =
     useState<google.maps.DirectionsResult | null>(null)
-  const [distance, setDistance] = useState('')
-  const [duration, setDuration] = useState('')
   const [routeCoordinates, setRouteCoordinates] = useState<
     { lat: number; lng: number }[]
   >([])
@@ -39,54 +33,10 @@ const MapPageV2 = () => {
   const [selectedMarkerTypes, setSelectedMarkerTypes] = useState<MARKER_TYPE[]>(
     []
   )
-
-  const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY || ''
-
-  const { isLoaded } = useJsApiLoader({
-    googleMapsApiKey: apiKey,
-    libraries: ['places'],
-  })
-
-  const handleMarkerClick = (props: InfoWindowDataProps) => {
-    setInfoWindowData(props)
-    setIsInfoWindowOpen(true)
-  }
-
-  const thresholdDistance = 0.7 // Adjust the threshold distance as needed (in kilometers)
-
-  const filteredMarkers = useMemo(() => {
-    return mockMarkers.filter((marker) => {
-      for (const point of routeCoordinates) {
-        const distance = calculateDistance(
-          marker.latitude,
-          marker.longitude,
-          point.lat,
-          point.lng
-        )
-        if (distance <= thresholdDistance) {
-          if (
-            selectedMarkerTypes.includes(marker.type) ||
-            !selectedMarkerTypes.length
-          ) {
-            return true // Marker is within the threshold distance of at least one point
-          }
-        }
-      }
-      return false // Marker is not within the threshold distance of any point
-    })
-  }, [routeCoordinates, selectedMarkerTypes])
-
-  const filteredMockMarkers = useMemo(() => {
-    if (selectedMarkerTypes.length === 0) return mockMarkers
-
-    return mockMarkers.filter((marker) => {
-      return selectedMarkerTypes.includes(marker.type)
-    })
-  }, [selectedMarkerTypes])
-
-  if (!isLoaded) {
-    return <div>Loading...</div>
-  }
+  const [originPoint, setOriginPoint] =
+    useState<google.maps.places.PlaceResult | null>(null)
+  const [destinationPoint, setDestinationPoint] =
+    useState<google.maps.places.PlaceResult | null>(null)
 
   return (
     <div className="w-screen h-screen max-h-[100dvh] overflow-y-hidden flex flex-col items-center relative">
@@ -100,62 +50,26 @@ const MapPageV2 = () => {
         onClickTitle1={() => setIsSelectedTitle1(true)}
         onClickTitle2={() => setIsSelectedTitle1(false)}
       />
-
-      <DirectionInput
-        setDirectionsResponse={setDirectionsResponse}
-        setDistance={setDistance}
-        setDuration={setDuration}
-        setRouteCoordinates={setRouteCoordinates}
-        selectedMarkerTypes={selectedMarkerTypes}
-        setSelectedMarkerTypes={setSelectedMarkerTypes}
-      />
-
-      <GoogleMap
-        mapContainerStyle={{ width: '100%', height: '90%' }}
-        center={bangkokCenter}
-        zoom={11}
-        options={{
-          mapTypeControl: false,
-          streetViewControl: false,
-          zoomControl: false,
-          fullscreenControl: false,
-        }}
-      >
-        {/* Child components, such as markers, info windows, etc. */}
-        {directionsResponse
-          ? filteredMarkers.map((marker) => (
-              <Marker
-                key={marker.id}
-                position={{ lat: marker.latitude, lng: marker.longitude }}
-                icon={getMarkerTypeSvg(marker.type)}
-                onClick={() => handleMarkerClick(marker)}
-              >
-                {isInfoWindowOpen && infoWindowData?.id === marker.id && (
-                  <InfoWindow onCloseClick={() => setIsInfoWindowOpen(false)}>
-                    <MarkerPopup {...marker} />
-                  </InfoWindow>
-                )}
-              </Marker>
-            ))
-          : filteredMockMarkers.map((marker) => (
-              <Marker
-                key={marker.id}
-                position={{ lat: marker.latitude, lng: marker.longitude }}
-                icon={getMarkerTypeSvg(marker.type)}
-                onClick={() => handleMarkerClick(marker)}
-              >
-                {isInfoWindowOpen && infoWindowData?.id === marker.id && (
-                  <InfoWindow onCloseClick={() => setIsInfoWindowOpen(false)}>
-                    <MarkerPopup {...marker} />
-                  </InfoWindow>
-                )}
-              </Marker>
-            ))}
-        {directionsResponse && (
-          <DirectionsRenderer directions={directionsResponse} />
-        )}
-      </GoogleMap>
-      {directionsResponse && <ProblemsDrawer problemList={filteredMarkers} />}
+      {isSelectedTitle1 ? (
+        <TrafficProblemPage
+          directionsResponse={directionsResponse}
+          infoWindowData={infoWindowData}
+          isInfoWindowOpen={isInfoWindowOpen}
+          routeCoordinates={routeCoordinates}
+          selectedMarkerTypes={selectedMarkerTypes}
+          setDirectionsResponse={setDirectionsResponse}
+          setInfoWindowData={setInfoWindowData}
+          setIsInfoWindowOpen={setIsInfoWindowOpen}
+          setRouteCoordinates={setRouteCoordinates}
+          setSelectedMarkerTypes={setSelectedMarkerTypes}
+          originPoint={originPoint}
+          setOriginPoint={setOriginPoint}
+          destinationPoint={destinationPoint}
+          setDestinationPoint={setDestinationPoint}
+        />
+      ) : (
+        <div>TODO</div>
+      )}
     </div>
   )
 }
