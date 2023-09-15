@@ -1,21 +1,9 @@
 'use client'
-import React, { useMemo, useState } from 'react'
-import {
-  GoogleMap,
-  useJsApiLoader,
-  Marker,
-  DirectionsRenderer,
-  InfoWindow,
-} from '@react-google-maps/api'
-import { MARKER_TYPE, mockMarkers } from '@/const/mockMarkers'
+import React, { useState } from 'react'
+import { MARKER_TYPE } from '@/const/mockMarkers'
 import { TraffueFondyIcon } from '@/icons'
 import Tabs from '@/components/Tabs'
-import { calculateDistance } from '@/utils/calculateDistance'
-import DirectionInput from '@/features/traffic-problem/components/DirectionInput'
-import ProblemsDrawer from '@/features/traffic-problem/components/ProblemsDrawer'
 import { EventCardProps } from '@/components/EventCard'
-import MarkerPopup from '@/features/traffic-problem/components/MarkerPopup'
-import { getMarkerTypeSvg } from '@/utils/getMarkerTypeSvg'
 import TrafficProblemPage from '@/features/traffic-problem/TrafficProblemPage'
 
 type InfoWindowDataProps = EventCardProps & { id: string }

@@ -8,7 +8,7 @@ import {
   Marker,
   useJsApiLoader,
 } from '@react-google-maps/api'
-import React, { useMemo, useState } from 'react'
+import React, { useMemo } from 'react'
 import DirectionInput from './components/DirectionInput'
 import { getMarkerTypeSvg } from '@/utils/getMarkerTypeSvg'
 import MarkerPopup from './components/MarkerPopup'
