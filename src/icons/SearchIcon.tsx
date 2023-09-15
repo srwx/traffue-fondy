@@ -10,9 +10,9 @@ export const SearchIcon = () => {
       <path
         d="M14 14.5L11.6667 12.1667M13.3333 8.16667C13.3333 11.2963 10.7963 13.8333 7.66667 13.8333C4.53705 13.8333 2 11.2963 2 8.16667C2 5.03705 4.53705 2.5 7.66667 2.5C10.7963 2.5 13.3333 5.03705 13.3333 8.16667Z"
         stroke="#211C54"
-        stroke-width="1.33333"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="1.33333"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   )
