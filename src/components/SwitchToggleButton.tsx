@@ -10,12 +10,12 @@ const SwitchToggleButton = ({
   toggleState,
   setToggleState,
 }: SwitchToggleButtonProps) => {
-  const toggleClass = 'transform translate-x-5'
+  const toggleClass = 'transform translate-x-[24px]'
 
   return (
     <div
       className={clsx(
-        'md:w-14 md:h-7 w-12 h-6 flex items-center rounded-full p-1 cursor-pointer',
+        'md:w-14 md:h-7 w-12 h-6 flex items-center rounded-full px-[2px] cursor-pointer',
         { 'bg-gray-400': !toggleState, 'bg-green-500': toggleState }
       )}
       onClick={() => {
