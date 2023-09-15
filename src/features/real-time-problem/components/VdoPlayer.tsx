@@ -10,7 +10,7 @@ const VideoPlayer = () => {
       try {
         setIsLoading(true)
         const response = await fetch(
-          'https://2cf9-2405-9800-b640-8523-1c9d-264b-aaf5-9b16.ngrok-free.app/result/vdo',
+          'https://2cf9-2405-9800-b640-8523-1c9d-264b-aaf5-9b16.ngrok-free.app/result/vdo/1',
           {
             method: 'GET',
             headers: new Headers({
