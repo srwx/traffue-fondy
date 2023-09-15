@@ -166,13 +166,13 @@ const SettingPage = () => {
         </div>
       </div>
 
-      <Image
+      {/* <Image
         width={1170}
         height={1497}
         src={'/images/background/city.png'}
         alt="bg"
         className="absolute -bottom-[calc(100dvh-85%)] left-0 z-0 opacity-10 md:hidden"
-      />
+      /> */}
     </div>
   )
 }
