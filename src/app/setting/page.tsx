@@ -141,15 +141,34 @@ const SettingPage = () => {
                 </span>
               </div>
               <hr />
-              <GrayButton
-                disabled={!isNotificationEnabled}
-                active={notificationFrequency === NOTIFICATION_FREQUENCY.ALL}
-                onClick={() =>
-                  setNotificationFrequency(NOTIFICATION_FREQUENCY.ALL)
-                }
-              >
-                ทั้งหมด
-              </GrayButton>
+              <div className="flex flex-wrap gap-2">
+                <GrayButton
+                  disabled={!isNotificationEnabled}
+                  active={selectedTopics.length === 0}
+                  onClick={() => setSelectedTopics([])}
+                >
+                  ทั้งหมด
+                </GrayButton>
+                {Object.values(TOPIC_TYPE).map((topic) => (
+                  <GrayButton
+                    key={topic}
+                    active={selectedTopics.includes(topic)}
+                    onClick={() => {
+                      if (selectedTopics.includes(topic)) {
+                        setSelectedTopics((prev) =>
+                          prev.filter((d) => d !== topic)
+                        )
+                        return
+                      } else {
+                        setSelectedTopics((prev) => [...prev, topic])
+                        return
+                      }
+                    }}
+                  >
+                    {topic}
+                  </GrayButton>
+                ))}
+              </div>
             </div>
           )}
 
@@ -212,7 +231,7 @@ const SettingPage = () => {
         alt="bg"
         className={clsx('absolute left-0 z-0 opacity-10 md:hidden', {
           '-bottom-[calc(100dvh-100%)]': !isNotificationEnabled,
-          '-bottom-[calc(100dvh-35%)]': isNotificationEnabled,
+          '-bottom-[calc(100dvh-55%)]': isNotificationEnabled,
         })}
       />
     </div>
