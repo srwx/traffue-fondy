@@ -171,7 +171,7 @@ const SettingPage = () => {
         height={1497}
         src={'/images/background/city.png'}
         alt="bg"
-        className="absolute -bottom-[calc(100dvh-60%)] left-0 z-0 opacity-10 md:hidden"
+        className="absolute -bottom-[calc(100dvh-55%)] left-0 z-0 opacity-10 md:hidden"
       />
     </div>
   )
