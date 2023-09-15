@@ -9,7 +9,7 @@ const Navbar = () => {
       style={{ boxShadow: '0px 0px 4px 0px rgba(0, 0, 0, 0.25)' }}
     >
       <Link href={'/map2'} className="col-start-2">
-        <TraffueFondyIcon width={130} height={40} />
+        <TraffueFondyIcon width={130} height={40} className="mx-auto" />
       </Link>
 
       <Link href={'/setting'} className="flex justify-end col-start-3 pr-3">
