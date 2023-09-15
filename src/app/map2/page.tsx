@@ -4,8 +4,9 @@ import { MARKER_TYPE } from '@/const/mockMarkers'
 import Tabs from '@/components/Tabs'
 import { EventCardProps } from '@/components/EventCard'
 import TrafficProblemPage from '@/features/traffic-problem/TrafficProblemPage'
-import RealTimeProblemPage from '@/features/traffic-problem/RealTimeProblemPage'
+import RealTimeProblemPage from '@/features/real-time-problem/RealTimeProblemPage'
 import Navbar from '@/components/Navbar'
+import Image from 'next/image'
 
 type InfoWindowDataProps = EventCardProps & { id: string }
 
@@ -55,7 +56,16 @@ const MapPageV2 = () => {
           setDestinationPoint={setDestinationPoint}
         />
       ) : (
-        <RealTimeProblemPage />
+        <>
+          <RealTimeProblemPage />
+          <Image
+            width={1170}
+            height={1497}
+            src={'/images/background/city.png'}
+            alt="bg"
+            className="absolute -bottom-[calc(100dvh-90%)] left-0 md:hidden opacity-10"
+          />
+        </>
       )}
     </div>
   )
