@@ -1,6 +1,11 @@
+import clsx from 'clsx'
 import React, { useEffect, useRef, useState } from 'react'
 
-const VideoPlayer = () => {
+interface VideoPlayerProps {
+  videoId: string
+}
+
+const VideoPlayer = ({ videoId }: VideoPlayerProps) => {
   const videoRef = useRef<HTMLVideoElement | null>(null)
   const [isLoading, setIsLoading] = useState(false)
   const [isError, setIsError] = useState(false)
@@ -10,7 +15,7 @@ const VideoPlayer = () => {
       try {
         setIsLoading(true)
         const response = await fetch(
-          'https://2cf9-2405-9800-b640-8523-1c9d-264b-aaf5-9b16.ngrok-free.app/result/vdo/1',
+          `https://2cf9-2405-9800-b640-8523-1c9d-264b-aaf5-9b16.ngrok-free.app/result/vdo/${videoId}`,
           {
             method: 'GET',
             headers: new Headers({
@@ -35,7 +40,7 @@ const VideoPlayer = () => {
     }
 
     fetchVdo()
-  }, [])
+  }, [videoId])
 
   return (
     <div className="w-full h-full">
@@ -49,7 +54,15 @@ const VideoPlayer = () => {
           <span className="text-secondary">Failed to fetch VDO.</span>
         </div>
       )}
-      <video ref={videoRef} autoPlay muted loop playsInline controls={false} />
+      <video
+        className={clsx({ hidden: isLoading || isError })}
+        ref={videoRef}
+        autoPlay
+        muted
+        loop
+        playsInline
+        controls={false}
+      />
     </div>
   )
 }

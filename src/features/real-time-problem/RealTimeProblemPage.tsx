@@ -29,6 +29,13 @@ const RealTimeProblemPage = () => {
           cameraLocation={selectedCamera}
           cameraName={selectedCamera}
           aiDetectedData={mockAiProblemDetection}
+          cameraVdoUrl={
+            selectedCamera === 'แยกชิดลม'
+              ? '1'
+              : selectedCamera === 'หน้าศาลรัฐธรรมนูญ'
+              ? '2'
+              : undefined
+          }
         />
       )}
     </div>

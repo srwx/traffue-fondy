@@ -1,5 +1,5 @@
 import { AiProblemDetectionProps } from '@/const/mockAiProblemDetection'
-import { InfoSquareIcon } from '@/icons'
+import { InfoRoundedIcon, InfoSquareIcon } from '@/icons'
 import { getAiProblemDetectionIcon } from '@/utils/getAiProblemDetectionIcon'
 import clsx from 'clsx'
 import dayjs from 'dayjs'
@@ -24,7 +24,6 @@ const ProblemInformation = ({
   cameraVdoUrl,
 }: ProblemInformationProps) => {
   const currentDate = dayjs().format('D MMMM YYYY')
-  const [aiDetectionResponse, setAiDetectionResponse] = React.useState<any>([])
 
   // useEffect(() => {
   //   const fetchData = async () => {
@@ -51,13 +50,20 @@ const ProblemInformation = ({
       <div className="flex flex-col gap-y-3">
         <div
           className={clsx(
-            'w-full h-full max-w-[382px] max-h-[250px] rounded',
+            'w-[382px] min-h-[250px] h-max rounded',
             'flex justify-center items-center',
             'bg-[#ebebeb]',
             'mx-auto'
           )}
         >
-          <VideoPlayer />
+          {cameraVdoUrl ? (
+            <VideoPlayer videoId={cameraVdoUrl} />
+          ) : (
+            <div className="flex items-center gap-x-2">
+              <InfoRoundedIcon />
+              <span className="text-[#B1B1B1] text-sm">ไม่มีข้อมูล</span>
+            </div>
+          )}
         </div>
         <div className="flex items-center gap-x-3">
           <InfoSquareIcon />
@@ -72,19 +78,26 @@ const ProblemInformation = ({
         <span className="text-primary text-sm font-medium">
           ปัญหาที่พบในเส้นทาง
         </span>
-        <div className="flex flex-col bg-white rounded-lg border-[1px] border-[#ECECEC] px-3 [&>*:not(:last-child)]:border-b-[1px]">
-          {aiDetectedData.map((problem) => (
-            <div key={problem.id} className="flex items-center gap-x-3 py-3">
-              <>{getAiProblemDetectionIcon(problem.type)}</>
-              <div className="flex flex-col gap-y-1">
-                <span className="text-primary text-sm">{problem.name}</span>
-                <span className="text-[#7A7A7A] text-xs">
-                  วันเวลา: {currentDate}
-                </span>
+        {cameraVdoUrl ? (
+          <div className="flex flex-col bg-white rounded-lg border-[1px] border-[#ECECEC] px-3 [&>*:not(:last-child)]:border-b-[1px]">
+            {aiDetectedData.map((problem) => (
+              <div key={problem.id} className="flex items-center gap-x-3 py-3">
+                <>{getAiProblemDetectionIcon(problem.type)}</>
+                <div className="flex flex-col gap-y-1">
+                  <span className="text-primary text-sm">{problem.name}</span>
+                  <span className="text-[#7A7A7A] text-xs">
+                    วันเวลา: {currentDate}
+                  </span>
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        ) : (
+          <div className="flex justify-center items-center gap-x-2 bg-white border-[#ECECEC] border-[1px] rounded-lg py-3">
+            <InfoRoundedIcon />
+            <span className="text-[#B1B1B1] text-sm">ไม่มีข้อมูล</span>
+          </div>
+        )}
       </div>
     </div>
   )
