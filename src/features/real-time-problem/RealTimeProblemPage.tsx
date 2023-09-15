@@ -2,7 +2,10 @@ import DropdownSelection from '@/components/primitives/Dropdown/Dropdown'
 import { cameraList } from '@/const/cameraList'
 import React, { useState } from 'react'
 import ProblemInformation from './components/ProblemInformation'
-import { mockAiProblemDetection } from '@/const/mockAiProblemDetection'
+import {
+  mockAiProblemDetectionv1,
+  mockAiProblemDetectionv2,
+} from '@/const/mockAiProblemDetection'
 
 const RealTimeProblemPage = () => {
   const [selectedCamera, setSelectedCamera] = useState('')
@@ -28,7 +31,11 @@ const RealTimeProblemPage = () => {
         <ProblemInformation
           cameraLocation={selectedCamera}
           cameraName={selectedCamera}
-          aiDetectedData={mockAiProblemDetection}
+          aiDetectedData={
+            selectedCamera === 'แยกชิดลม'
+              ? mockAiProblemDetectionv1
+              : mockAiProblemDetectionv2
+          }
           cameraVdoUrl={
             selectedCamera === 'แยกชิดลม'
               ? '1'
