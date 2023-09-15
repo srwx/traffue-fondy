@@ -28,7 +28,7 @@ const MapPageV2 = () => {
     useState<google.maps.places.PlaceResult | null>(null)
 
   return (
-    <div className="w-screen h-screen max-h-[100dvh] overflow-y-hidden flex flex-col items-center relative">
+    <div className="w-screen h-screen max-h-[100dvh] overflow-y-hidden relative">
       <Navbar />
       <Tabs
         title1="ปัญหาจราจรทั่วไป"
