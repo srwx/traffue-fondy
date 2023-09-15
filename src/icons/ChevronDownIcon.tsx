@@ -1,5 +1,6 @@
 interface ChevronDownIconProps {
   className?: string
+  stroke?: string
 }
 
 export const ChevronDownIcon = (props: ChevronDownIconProps) => {
@@ -14,7 +15,7 @@ export const ChevronDownIcon = (props: ChevronDownIconProps) => {
     >
       <path
         d="M5 8L10 13L15 8"
-        stroke="#211C54"
+        stroke={props.stroke || '#211C54'}
         strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
