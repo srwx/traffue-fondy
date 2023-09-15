@@ -5,6 +5,7 @@ import {
   DirectionsRenderer,
   GoogleMap,
   InfoWindow,
+  Libraries,
   Marker,
   useJsApiLoader,
 } from '@react-google-maps/api'
@@ -56,6 +57,8 @@ interface TrafficProblemPageProps {
   >
 }
 
+const libraries: Libraries = ['places']
+
 const TrafficProblemPage = ({
   setInfoWindowData,
   setIsInfoWindowOpen,
@@ -76,7 +79,7 @@ const TrafficProblemPage = ({
 
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: apiKey,
-    libraries: ['places'],
+    libraries: libraries,
   })
 
   const handleMarkerClick = (props: InfoWindowDataProps) => {
