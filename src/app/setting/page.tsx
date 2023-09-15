@@ -231,7 +231,7 @@ const SettingPage = () => {
         alt="bg"
         className={clsx('absolute left-0 z-0 opacity-10 md:hidden', {
           '-bottom-[calc(100dvh-100%)]': !isNotificationEnabled,
-          '-bottom-[calc(100dvh-55%)]': isNotificationEnabled,
+          '-bottom-[calc(100dvh-70%)]': isNotificationEnabled,
         })}
       />
     </div>
