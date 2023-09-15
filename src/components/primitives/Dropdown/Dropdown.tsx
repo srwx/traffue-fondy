@@ -35,7 +35,7 @@ const DropdownSelection = (props: DropdownSelectionProps) => {
       <DropdownMenu.Portal>
         <DropdownMenu.Content
           className={clsx(
-            'w-full bg-white rounded-md px-3 py-3 shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)]',
+            'w-[calc(100vw-32px)] bg-white rounded-md px-3 py-3 shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)]',
             'flex flex-col',
             'max-h-[calc(100vh-200px)] overflow-y-auto scrollbar-hide',
             '[&>*:not(:last-child)]:border-b-[1px] border-[#E9E9E9]'
@@ -44,7 +44,10 @@ const DropdownSelection = (props: DropdownSelectionProps) => {
           {menuList.map((menu) => (
             <DropdownMenu.Item
               key={menu}
-              className="text-sm leading-none text-primary rounded-[4px] px-1 relative select-none outline-none py-3"
+              className={clsx(
+                'text-sm leading-none text-primary rounded-[4px] px-1 relative select-none outline-none py-3',
+                'cursor-pointer hover:bg-[#ebebeb]'
+              )}
               onClick={() => onSelectMenu(menu)}
             >
               <span>{menu}</span>
