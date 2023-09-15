@@ -5,7 +5,6 @@ import clsx from 'clsx'
 import dayjs from 'dayjs'
 import React from 'react'
 import buddhistEra from 'dayjs/plugin/buddhistEra'
-import Image from 'next/image'
 
 dayjs.locale('th')
 dayjs.extend(buddhistEra)
@@ -57,9 +56,11 @@ const ProblemInformation = ({
           {aiDetectedData.map((problem) => (
             <div key={problem.id} className="flex items-center gap-x-3 py-3">
               <>{getAiProblemDetectionIcon(problem.type)}</>
-              <div className="flex flex-col">
+              <div className="flex flex-col gap-y-1">
                 <span className="text-primary text-sm">{problem.name}</span>
-                <span>{currentDate}</span>
+                <span className="text-[#7A7A7A] text-xs">
+                  วันเวลา: {currentDate}
+                </span>
               </div>
             </div>
           ))}
