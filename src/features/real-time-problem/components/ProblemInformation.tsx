@@ -26,24 +26,24 @@ const ProblemInformation = ({
   const currentDate = dayjs().format('D MMMM YYYY')
   const [aiDetectionResponse, setAiDetectionResponse] = React.useState<any>([])
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const res = await fetch(
-        'https://2cf9-2405-9800-b640-8523-1c9d-264b-aaf5-9b16.ngrok-free.app/result/text',
-        {
-          method: 'GET',
-          headers: new Headers({
-            'ngrok-skip-browser-warning': '69420',
-          }),
-        }
-      )
-      console.log('res', res)
-      const resJson = await res.json()
-      console.log('resJson', resJson.result)
-    }
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const res = await fetch(
+  //       'https://2cf9-2405-9800-b640-8523-1c9d-264b-aaf5-9b16.ngrok-free.app/result/text',
+  //       {
+  //         method: 'GET',
+  //         headers: new Headers({
+  //           'ngrok-skip-browser-warning': '69420',
+  //         }),
+  //       }
+  //     )
+  //     console.log('res', res)
+  //     const resJson = await res.json()
+  //     console.log('resJson', resJson.result)
+  //   }
 
-    fetchData()
-  }, [])
+  //   fetchData()
+  // }, [])
 
   return (
     <div className="w-full flex flex-col gap-y-6 mt-4">
@@ -51,14 +51,12 @@ const ProblemInformation = ({
       <div className="flex flex-col gap-y-3">
         <div
           className={clsx(
-            'w-full h-[244px] rounded',
+            'w-full h-full max-w-[382px] max-h-[250px] rounded',
             'flex justify-center items-center',
-            'bg-[#ebebeb]'
+            'bg-[#ebebeb]',
+            'mx-auto'
           )}
         >
-          {/* <span className="text-sm text-primary">
-            🚧 TODO: VDO from camera with AI detection
-          </span> */}
           <VideoPlayer />
         </div>
         <div className="flex items-center gap-x-3">

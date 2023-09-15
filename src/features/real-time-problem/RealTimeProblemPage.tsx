@@ -26,7 +26,7 @@ const RealTimeProblemPage = () => {
       </div>
       {selectedCamera && (
         <ProblemInformation
-          cameraLocation="TODO"
+          cameraLocation={selectedCamera}
           cameraName={selectedCamera}
           aiDetectedData={mockAiProblemDetection}
         />
