@@ -1,10 +1,11 @@
 'use client'
 import React, { useState } from 'react'
 import { MARKER_TYPE } from '@/const/mockMarkers'
-import { TraffueFondyIcon } from '@/icons'
 import Tabs from '@/components/Tabs'
 import { EventCardProps } from '@/components/EventCard'
 import TrafficProblemPage from '@/features/traffic-problem/TrafficProblemPage'
+import RealTimeProblemPage from '@/features/traffic-problem/RealTimeProblemPage'
+import Navbar from '@/components/Navbar'
 
 type InfoWindowDataProps = EventCardProps & { id: string }
 
@@ -28,9 +29,7 @@ const MapPageV2 = () => {
 
   return (
     <div className="w-screen h-screen max-h-[100dvh] overflow-y-hidden flex flex-col items-center relative">
-      <div className="py-1">
-        <TraffueFondyIcon width={130} height={40} />
-      </div>
+      <Navbar />
       <Tabs
         title1="ปัญหาจราจรทั่วไป"
         title2="ดูปัญหาเรียลไทม์"
@@ -56,7 +55,7 @@ const MapPageV2 = () => {
           setDestinationPoint={setDestinationPoint}
         />
       ) : (
-        <div>TODO</div>
+        <RealTimeProblemPage />
       )}
     </div>
   )
