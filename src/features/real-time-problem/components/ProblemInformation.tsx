@@ -49,18 +49,18 @@ const ProblemInformation = ({
     <div className="w-full flex flex-col gap-y-6 mt-4">
       {/* <!-- Camera section --> */}
       <div className="flex flex-col gap-y-3">
-        {/* <div
+        <div
           className={clsx(
             'w-full h-[244px] rounded',
             'flex justify-center items-center',
             'bg-[#ebebeb]'
           )}
         >
-          <span className="text-sm text-primary">
+          {/* <span className="text-sm text-primary">
             🚧 TODO: VDO from camera with AI detection
-          </span>
-        </div> */}
-        <VideoPlayer />
+          </span> */}
+          <VideoPlayer />
+        </div>
         <div className="flex items-center gap-x-3">
           <InfoSquareIcon />
           <span className="text-primary text-xs">
