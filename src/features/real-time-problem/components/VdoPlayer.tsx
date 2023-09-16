@@ -15,7 +15,7 @@ const VideoPlayer = ({ videoId }: VideoPlayerProps) => {
       try {
         setIsLoading(true)
         const response = await fetch(
-          `https://2cf9-2405-9800-b640-8523-1c9d-264b-aaf5-9b16.ngrok-free.app/result/vdo/${videoId}`,
+          `${process.env.NEXT_PUBLIC_AI_URL}/result/vdo/${videoId}`,
           {
             method: 'GET',
             headers: new Headers({
