@@ -3,7 +3,7 @@ import { InfoRoundedIcon, InfoSquareIcon } from '@/icons'
 import { getAiProblemDetectionIcon } from '@/utils/getAiProblemDetectionIcon'
 import clsx from 'clsx'
 import dayjs from 'dayjs'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import buddhistEra from 'dayjs/plugin/buddhistEra'
 import VideoPlayer from './VdoPlayer'
 
@@ -24,6 +24,8 @@ const ProblemInformation = ({
   cameraVdoUrl,
 }: ProblemInformationProps) => {
   const currentDate = dayjs().format('D MMMM YYYY')
+  const [isLoading, setIsLoading] = useState(false)
+  const [isError, setIsError] = useState(false)
 
   // useEffect(() => {
   //   const fetchData = async () => {
@@ -57,7 +59,13 @@ const ProblemInformation = ({
           )}
         >
           {cameraVdoUrl ? (
-            <VideoPlayer videoId={cameraVdoUrl} />
+            <VideoPlayer
+              videoId={cameraVdoUrl}
+              isError={isError}
+              isLoading={isLoading}
+              setIsError={setIsError}
+              setIsLoading={setIsLoading}
+            />
           ) : (
             <div className="flex items-center gap-x-2">
               <InfoRoundedIcon />
@@ -78,7 +86,11 @@ const ProblemInformation = ({
         <span className="text-primary text-sm font-medium">
           ปัญหาที่พบในเส้นทาง
         </span>
-        {cameraVdoUrl ? (
+        {isLoading ? (
+          <span className="text-primary">กำลังโหลดภาพจากกล้อง...</span>
+        ) : isError ? (
+          <span className="text-secondary">ไม่สามารถโหลดภาพจากกล้องได้</span>
+        ) : cameraVdoUrl ? (
           <div className="flex flex-col bg-white rounded-lg border-[1px] border-[#ECECEC] px-3 [&>*:not(:last-child)]:border-b-[1px]">
             {aiDetectedData.map((problem) => (
               <div key={problem.id} className="flex items-center gap-x-3 py-3">

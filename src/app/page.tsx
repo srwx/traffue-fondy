@@ -2,18 +2,22 @@ import Button from '@/components/Button'
 import { AnnoucementIcon, TraffueFondyIcon, UserIcon } from '@/icons'
 import clsx from 'clsx'
 import Image from 'next/image'
+import Link from 'next/link'
 
 export default function Home() {
   return (
     <div className={clsx('min-h-[100dvh] relative', 'bg-[#F0F0F0]')}>
       <div className="relative w-full flex flex-col gap-y-5 items-center pt-20 z-20">
         <TraffueFondyIcon width={150} height={100} className="mb-8" />
-        <Button className="w-full bg-secondary max-w-[276px]">
+        <Link
+          href={'/map2'}
+          className="w-full rounded-lg p-3 bg-secondary max-w-[276px]"
+        >
           <div className="flex items-center gap-x-2">
             <UserIcon />
             <span className="text-white text-base">สำหรับประชาชน</span>
           </div>
-        </Button>
+        </Link>
         <Button className="w-full bg-primary max-w-[276px]">
           <div className="flex items-center gap-x-2">
             <AnnoucementIcon />

@@ -3,12 +3,20 @@ import React, { useEffect, useRef, useState } from 'react'
 
 interface VideoPlayerProps {
   videoId: string
+  isLoading: boolean
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>
+  isError: boolean
+  setIsError: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const VideoPlayer = ({ videoId }: VideoPlayerProps) => {
+const VideoPlayer = ({
+  videoId,
+  isError,
+  isLoading,
+  setIsError,
+  setIsLoading,
+}: VideoPlayerProps) => {
   const videoRef = useRef<HTMLVideoElement | null>(null)
-  const [isLoading, setIsLoading] = useState(false)
-  const [isError, setIsError] = useState(false)
 
   useEffect(() => {
     const fetchVdo = async () => {
@@ -40,18 +48,18 @@ const VideoPlayer = ({ videoId }: VideoPlayerProps) => {
     }
 
     fetchVdo()
-  }, [videoId])
+  }, [setIsError, setIsLoading, videoId])
 
   return (
     <div className="w-full h-full">
       {isLoading && (
         <div className="w-full h-full flex justify-center items-center">
-          <span className="text-primary">Loading...</span>
+          <span className="text-primary">กำลังโหลดภาพจากกล้อง...</span>
         </div>
       )}
       {isError && (
         <div className="w-full h-full flex justify-center items-center">
-          <span className="text-secondary">Failed to fetch VDO.</span>
+          <span className="text-secondary">ไม่สามารถโหลดภาพจากกล้องได้</span>
         </div>
       )}
       <video
