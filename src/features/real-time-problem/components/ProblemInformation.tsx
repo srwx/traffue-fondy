@@ -87,9 +87,14 @@ const ProblemInformation = ({
           ปัญหาที่พบในเส้นทาง
         </span>
         {isLoading ? (
-          <span className="text-primary">กำลังโหลดภาพจากกล้อง...</span>
+          <div className="flex justify-center items-center min-h-[100px]">
+            <span className="text-primary">กำลังโหลดภาพจากกล้อง...</span>
+          </div>
         ) : isError ? (
-          <span className="text-secondary">ไม่สามารถโหลดภาพจากกล้องได้</span>
+          <div className="flex justify-center items-center min-h-[100px]">
+            {' '}
+            <span className="text-secondary">ไม่สามารถโหลดภาพจากกล้องได้</span>
+          </div>
         ) : cameraVdoUrl ? (
           <div className="flex flex-col bg-white rounded-lg border-[1px] border-[#ECECEC] px-3 [&>*:not(:last-child)]:border-b-[1px]">
             {aiDetectedData.map((problem) => (
