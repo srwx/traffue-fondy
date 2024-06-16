@@ -6,7 +6,10 @@ const tagManagerArgs: TagManagerArgs = {
   gtmId: 'GTM-WZ537T2S',
 }
 
-TagManager.initialize(tagManagerArgs)
+// check is it working on client side
+if (typeof window !== 'undefined') {
+  TagManager.initialize(tagManagerArgs)
+}
 
 export const metadata: Metadata = {
   title: 'Traffue Fondy',
